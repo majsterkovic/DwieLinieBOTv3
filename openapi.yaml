@@ -1,0 +1,344 @@
+openapi: 3.0.3
+
+info:
+    version: 3.0.0 beta
+    title: Wykop API v3 (beta)
+    
+    description: >
+        Każda aplikacja korzystająca z API musi autoryzować się swoim unikatowym identyfikatorem (appkey) i hasłem (secret) w celu otrzymania tokena JWT, który umożliwia korzystanie z całego API.
+        <br><br>
+        Brak autoryzacji powoduje wystąpienie globalnego kodu błędu HTTP 403 lub w przypadku braku EP HTTP 404.
+        <br><br>
+        Wszystkie EP które zostały zablokowane zwracają kod HTTP 401 z kluczem 3.
+        <br><br>
+        Gdy użytkownik przekroczył limit (dodawanie wpisów, znalezisk, linków powiązanych, komentarzy lub głosowania), zwracany jest błąd HTTP 400 z wiadomością "limit_exceeded". 
+    license:
+        name: Wykop Sp. z o.o.
+
+servers:
+    -
+        url: 'https://wykop.pl/api/v3/'
+        description: Wersja produkcyjna
+
+security:
+    -
+        bearerAuth: [ ]
+
+paths:
+    /auth:
+        $ref: '/resources/auth.yaml'
+    /refresh-token:
+        $ref: '/resources/refresh_token.yaml'
+    /connect:
+        $ref: '/resources/connect/connect.yaml'
+    /logout:
+        $ref: '/resources/logout.yaml'
+
+    /users/autocomplete:
+        $ref: '/resources/users/autocomplete.yaml'
+
+    /tags/autocomplete:
+        $ref: '/resources/tags/autocomplete.yaml'
+    /tags/popular:
+        $ref: '/resources/tags/tags_popular.yaml'
+    /tags/popular-user-tags:
+        $ref: '/resources/tags/popular_user_tags.yaml'
+    /tags/{tagName}/related:
+        $ref: '/resources/tags/related.yaml'
+    /tags/{tagName}:
+        $ref: '/resources/tags/tag.yaml'
+    /tags/{tagName}/stream:
+        $ref: '/resources/tags/tag_stream.yaml'
+    /tags/{tagName}/newer:
+        $ref: '/resources/tags/tag_newer.yaml'
+    /tags/{tagName}/users:
+        $ref: '/resources/tags/users.yaml'
+    /tags/{tagName}/users/{username}:
+        $ref: '/resources/tags/users_user.yaml'
+    /tags/{tagName}/pinned:
+        $ref: '/resources/tags/tag_pinned.yaml'
+    /tags/{tagName}/pin/{resource}/{id}:
+        $ref: '/resources/tags/tag_pin.yaml'
+    /tags/{tagName}/unpin/{resource}/{id}:
+        $ref: '/resources/tags/tag_unpin.yaml'
+    /tags/{tagName}/notifications:
+        $ref: '/resources/tags/tag_notifications.yaml'
+
+    /pinned-tags:
+        $ref: '/resources/pinned_tags/pinned_tags.yaml'
+
+    /notifications/status:
+        $ref: '/resources/notifications/status/notifications_status.yaml'
+    /notifications/entries:
+        $ref: '/resources/notifications/entry/notifications_entries.yaml'
+    /notifications/entries/all:
+        $ref: '/resources/notifications/entry/notifications_entries_all.yaml'
+    /notifications/entries/{id}:
+        $ref: '/resources/notifications/entry/notifications_entry.yaml'
+    /notifications/pm:
+        $ref: '/resources/notifications/pm/notifications_pms.yaml'
+    /notifications/pm/all:
+        $ref: '/resources/notifications/pm/notifications_pms_all.yaml'
+    /notifications/pm/{id}:
+        $ref: '/resources/notifications/pm/notifications_pm.yaml'
+    /notifications/tags:
+        $ref: '/resources/notifications/tags/notifications_tags.yaml'
+    /notifications/tags/all:
+        $ref: '/resources/notifications/tags/notifications_tags_all.yaml'
+    /notifications/tags/{id}:
+        $ref: '/resources/notifications/tags/notifications_tag.yaml'
+    /notifications/observed-discussions:
+        $ref: '/resources/notifications/observed_discussions/notifications_observed_discussions.yaml'
+    /notifications/observed-discussions/all:
+        $ref: '/resources/notifications/observed_discussions/notifications_observed_discussions_all.yaml'
+    /notifications/observed-discussions/{id}:
+        $ref: '/resources/notifications/observed_discussions/notifications_observed_discussion.yaml'
+    /notifications/groups/{group_id}:
+        $ref: '/resources/notifications/groups/notifications_groups.yaml'
+
+    /profile:
+        $ref: '/resources/profile/profile.yaml'
+    /profile/short:
+        $ref: '/resources/profile/profile_short.yaml'
+    /profile/users-year-summaries/{year}/{token}:
+        $ref: '/resources/profile/users_year_summaries.yaml'
+    /profile/users/{username}:
+        $ref: '/resources/profile/global.yaml'
+    /profile/users/{username}/short:
+        $ref: '/resources/profile/global_short.yaml'
+    /profile/users/{username}/actions:
+        $ref: '/resources/profile/global_profile_actions.yaml'
+    /profile/users/{username}/entries/added:
+        $ref: '/resources/profile/global_profile_entries_added.yaml'
+    /profile/users/{username}/entries/voted:
+        $ref: '/resources/profile/global_profile_entries_voted.yaml'
+    /profile/users/{username}/entries/commented:
+        $ref: '/resources/profile/global_profile_entries_commented.yaml'
+    /profile/users/{username}/links/added:
+        $ref: '/resources/profile/global_profile_links_added.yaml'
+    /profile/users/{username}/links/published:
+        $ref: '/resources/profile/global_profile_links_published.yaml'
+    /profile/users/{username}/links/up:
+        $ref: '/resources/profile/global_profile_links_up.yaml'
+    /profile/users/{username}/links/down:
+        $ref: '/resources/profile/global_profile_links_down.yaml'
+    /profile/users/{username}/links/commented:
+        $ref: '/resources/profile/global_profile_links_commented.yaml'
+    /profile/users/{username}/links/related:
+        $ref: '/resources/profile/global_profile_links_related.yaml'
+    /profile/users/{username}/badges:
+        $ref: '/resources/profile/profile_badges.yaml'
+    /profile/users/{username}/tags:
+        $ref: '/resources/profile/global_profile_tags.yaml'
+    /profile/users/{username}/observed/tags:
+        $ref: '/resources/profile/profile_observed_tags.yaml'
+    /profile/users/{username}/observed/users/following:
+        $ref: '/resources/profile/global_profile_following.yaml'
+    /profile/users/{username}/observed/users/followers:
+        $ref: '/resources/profile/global_profile_followers.yaml'
+    /profile/users/{username}/observed/tags/menu:
+        $ref: '/resources/profile/profile_observed_tags_menu.yaml'
+
+
+    /settings/blacklists/stats:
+        $ref: '/resources/settings/blacklists/stats.yaml'
+
+    /settings/blacklists/domains:
+        $ref: '/resources/settings/blacklists/domains.yaml'
+    /settings/blacklists/domains/{domain}:
+        $ref: '/resources/settings/blacklists/domains_domain.yaml'
+    /settings/blacklists/tags:
+        $ref: '/resources/settings/blacklists/tags.yaml'
+    /settings/blacklists/tags/{tag}:
+        $ref: '/resources/settings/blacklists/tags_tag.yaml'
+    /settings/blacklists/users:
+        $ref: '/resources/settings/blacklists/users.yaml'
+    /settings/blacklists/users/{username}:
+        $ref: '/resources/settings/blacklists/users_user.yaml'
+    
+    /settings/profile:
+        $ref: '/resources/settings/profile.yaml'
+    /settings/profile/avatar:
+        $ref: '/resources/settings/profile_avatar.yaml'
+    /settings/profile/background:
+        $ref: '/resources/settings/profile_background.yaml'
+    /settings/general:
+        $ref: '/resources/settings/general.yaml'
+
+    /links:
+        $ref: '/resources/links/links.yaml'
+    /links/{linkId}/votes/up:
+        $ref: '/resources/links/links_vote_up.yaml'
+    /links/{linkId}/votes/down/{reason}:
+        $ref: '/resources/links/links_vote_down.yaml'
+    /links/stats/upcoming:
+        $ref: '/resources/links/links_stats_upcoming.yaml'
+    /links/url:
+        $ref: '/resources/links/links_url.yaml'
+    /links/{linkId}/votes:
+        $ref: '/resources/links/links_undo_vote.yaml'
+    /links/{linkId}:
+        $ref: '/resources/links/link.yaml'
+    /links/{linkId}/upvotes/{type}:
+        $ref: '/resources/links/link_upvotes.yaml'
+    /links/{linkId}/related:
+        $ref: '/resources/links_related/links_related.yaml'
+    /links/{linkId}/related/{relatedId}:
+        $ref: '/resources/links_related/links_related_id.yaml'
+    /links/{linkId}/related/{relatedId}/votes:
+        $ref: '/resources/links_related/links_related_id_votes.yaml'
+    /links/{linkId}/related/{relatedId}/votes/{type}:
+        $ref: '/resources/links_related/links_related_id_votes_type.yaml'
+    /links/{linkId}/redirect:
+        $ref: '/resources/links/link_redirect.yaml'
+    /links/{linkId}/observed-discussions:
+        $ref: '/resources/links/links_link_observed_discussions.yaml'
+
+    /links/{linkId}/ama/start:
+        $ref: '/resources/links/link_ama_start.yaml'
+    /links/{linkId}/ama/finish:
+        $ref: '/resources/links/link_ama_finish.yaml'
+    /links/{linkId}/ama/mute:
+        $ref: '/resources/links/link_ama_mute.yaml'
+    /links/{linkId}/ama/unmute:
+        $ref: '/resources/links/link_ama_unmute.yaml'
+
+    /links/{linkId}/comments:
+        $ref: '/resources/links_comments/links_comments.yaml'
+    /links/{linkId}/comments/{commentId}:
+        $ref: '/resources/links_comments/links_comments_comment.yaml'
+    /links/{linkId}/comments/{commentId}/comments:
+        $ref: '/resources/links_comments/links_comment_subcomments.yaml'
+    /links/{linkId}/comments/{commentId}/votes:
+        $ref: '/resources/links_comments/links_comments_comment_votes.yaml'
+    /links/{linkId}/comments/{commentId}/votes/{type}:
+        $ref: '/resources/links_comments/links_comments_comment_votes_new.yaml'
+    /links/{linkId}/comments/{commentId}/observed-discussions:
+        $ref: '/resources/links_comments/links_comments_comment_observed_discussions.yaml'
+
+    /links/draft:
+        $ref: '/resources/links_draft/links_draft.yaml'
+    /links/draft/{key}:
+        $ref: '/resources/links_draft/links_draft_draft.yaml'
+
+    /articles:
+        $ref: '/resources/articles/articles.yaml'
+    /articles/{id}:
+        $ref: '/resources/articles/articles_article.yaml'
+    /articles/{articleId}/histories/{articleContentId}:
+        $ref: '/resources/articles/articles_article_histories.yaml'
+
+    /pm/open:
+        $ref: '/resources/pm/pm_open.yaml'
+    /pm/read-all:
+        $ref: '/resources/pm/pm_read_all.yaml'
+    /pm/conversations:
+        $ref: '/resources/pm/pm.yaml'
+    /pm/conversations/{username}:
+        $ref: '/resources/pm/pm_messages.yaml'
+    /pm/conversations/{username}/newer:
+        $ref: '/resources/pm/pm_newer.yaml'
+
+    /entries:
+        $ref: '/resources/entries/entries.yaml'
+    /entries/{entryId}:
+        $ref: '/resources/entries/entries_entry.yaml'
+    /entries/{entryId}/votes:
+        $ref: '/resources/entries/entries_entry_votes.yaml'
+    /entries/{entryId}/newer:
+        $ref: '/resources/entries/entries_entry_newer.yaml'
+    /entries/{entryId}/observed-discussions:
+        $ref: '/resources/entries/entries_entry_observed_discussions.yaml'
+
+    /entries/{entryId}/comments:
+        $ref: '/resources/entries/entries_comments.yaml'
+    /entries/{entryId}/comments/newer:
+        $ref: '/resources/entries/entries_comments_comment_newer.yaml'
+    /entries/{entryId}/comments/{commentId}:
+        $ref: '/resources/entries/entries_comments_comment.yaml'
+    /entries/{entryId}/comments/{commentId}/votes:
+        $ref: '/resources/entries/entries_comments_comment_votes.yaml'
+
+    /entries/survey:
+        $ref: '/resources/entries/entries_survey.yaml'
+    /entries/{id}/survey/votes:
+        $ref: '/resources/entries/entries_survey_votes.yaml'
+
+    /media/photos/upload:
+        $ref: '/resources/media/photos/upload.yaml'
+    /media/photos:
+        $ref: '/resources/media/photos/upload_from_url.yaml'
+    /media/photos/{key}:
+        $ref: '/resources/media/photos/remove.yaml'
+
+    /media/embed:
+        $ref: '/resources/media/embed/embed.yaml'
+
+    /favourites:
+        $ref: '/resources/favourite/favourites.yaml'
+
+    /notes:
+        $ref: '/resources/notes/list.yaml'
+
+    /notes/{username}:
+        $ref: '/resources/notes/user.yaml'
+
+    /hits/links:
+        $ref: '/resources/hits/links.yaml'
+    /hits/entires:
+        $ref: '/resources/hits/entries.yaml'
+
+    /search/all:
+        $ref: '/resources/search/search.yaml'
+    /search/stream:
+        $ref: '/resources/search/search_stream.yaml'
+    /search/links:
+        $ref: '/resources/search/search_links.yaml'
+    /search/entries:
+        $ref: '/resources/search/search_entries.yaml'
+    /search/users:
+        $ref: '/resources/search/search_users.yaml'
+
+    /saved-search:
+        $ref: '/resources/saved_search/saved_search.yaml'
+    /saved-search/{id}:
+        $ref: '/resources/saved_search/saved_search_id.yaml'
+
+    /categories:
+        $ref: '/resources/categories/categories.yaml'
+
+    /observed/users:
+        $ref: '/resources/observed/observe_users.yaml'
+    /observed/users/newer:
+        $ref: '/resources/observed/observe_users_followers_newer.yaml'
+    /observed/users/{username}:
+        $ref: '/resources/observed/observe_users_followers_follower.yaml'
+    /observed/tags/{tagName}:
+        $ref: '/resources/observed/observe_tag.yaml'
+    /observed/tags/stream:
+        $ref: '/resources/observed/observed_tags_stream.yaml'
+    /observed/discussions:
+        $ref: '/resources/observed/observed_discussions.yaml'
+    /observed/all:
+        $ref: '/resources/observed/observed_all.yaml'
+    /observed/tags/{tagName}/notifications:
+        $ref: '/resources/observed/observe_tag_notifications.yaml'
+    /observed/tags/{tagName}/pinned:
+        $ref: '/resources/observed/observe_tag_pinned.yaml'
+
+    /badges:
+        $ref: '/resources/badges/badge_list.yaml'
+    /badges/{slug}:
+        $ref: '/resources/badges/badge_single.yaml'
+    /badges/{slug}/users:
+        $ref: '/resources/badges/badge_users_list.yaml'
+
+    /rank:
+        $ref: '/resources/rank/rank.yaml'
+
+components:
+    securitySchemes:
+        bearerAuth:
+            type: http
+            scheme: bearer
+            bearerFormat: JWT
